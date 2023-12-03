@@ -4,9 +4,12 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Home from "../pages/home/Home";
 import Login from "../auth/Login/Login";
 import Register from "../auth/Register/Register";
-import Dashboard from "../layouts/Dashboard";
+// import UserDashboard from "../layouts/UserDashboard";
+// import AdminDashboard from "../layouts/AdminDashboard";
+import Membership from "../pages/membership/Membership";
 import UserDashboard from "../layouts/UserDashboard";
-import AdminDashboard from "../layouts/AdminDashboard";
+import MyProfile from "../pages/userdashboard/MyProfile";
+// import MyProfile from "../pages/userdashboard/MyProfile";
 // import CreateAssignment from "../pages/assignment/CreateAssignment";
 // import UpdateAssignment from "../pages/assignment/UpdateAssignment";
 // import DetailAssignment from "../pages/assignment/DetailAssignment";
@@ -26,6 +29,10 @@ const router = createBrowserRouter([
                 element: <Home></Home>,
             },
             {
+                path: '/membership',
+                element: <Membership></Membership>,
+            },
+            {
                 path: '/login',
                 element: <Login></Login>,
             },
@@ -33,18 +40,14 @@ const router = createBrowserRouter([
                 path: '/register',
                 element: <Register></Register>,
             },
-            {
-                path: '/dashboard',
-                element: <Dashboard></Dashboard>,
-            },
-            {
-                path: '/userdashboard',
-                element: <UserDashboard></UserDashboard>,
-            },
-            {
-                path: '/admindashboard',
-                element: <AdminDashboard></AdminDashboard>,
-            },
+            // {
+            //     path: '/userdashboard',
+            //     element: <UserDashboard></UserDashboard>,
+            // },
+            // {
+            //     path: '/admindashboard',
+            //     element: <AdminDashboard></AdminDashboard>,
+            // },
             // {
             //     path: '/allassignment',
             //     element: <AllAssignment></AllAssignment>,
@@ -80,7 +83,18 @@ const router = createBrowserRouter([
             //     loader: () => fetch('https://m11a-group-study-server.vercel.app/taken'),
             // },
         ]
-    }
+    },
+    {
+        path: 'userdashboard',
+        element: <UserDashboard></UserDashboard>,
+        errorElement: <ErrorPage></ErrorPage>,
+        children: [
+            {
+                path: 'myprofile',
+                element: <MyProfile></MyProfile>,
+            },
+        ]
+    },
 ]);
 
 export default router;
