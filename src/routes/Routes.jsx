@@ -4,6 +4,9 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Home from "../pages/home/Home";
 import Login from "../auth/Login/Login";
 import Register from "../auth/Register/Register";
+import Dashboard from "../layouts/Dashboard";
+import UserDashboard from "../layouts/UserDashboard";
+import AdminDashboard from "../layouts/AdminDashboard";
 // import CreateAssignment from "../pages/assignment/CreateAssignment";
 // import UpdateAssignment from "../pages/assignment/UpdateAssignment";
 // import DetailAssignment from "../pages/assignment/DetailAssignment";
@@ -29,6 +32,18 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>,
+            },
+            {
+                path: '/dashboard',
+                element: <Dashboard></Dashboard>,
+            },
+            {
+                path: '/userdashboard',
+                element: <UserDashboard></UserDashboard>,
+            },
+            {
+                path: '/admindashboard',
+                element: <AdminDashboard></AdminDashboard>,
             },
             // {
             //     path: '/allassignment',
