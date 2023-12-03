@@ -15,7 +15,6 @@ const UserDashboard = () => {
             </div>
             <Footer></Footer>
         </>
-    
     );
 };
 

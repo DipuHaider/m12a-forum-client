@@ -9,6 +9,13 @@ import Register from "../auth/Register/Register";
 import Membership from "../pages/membership/Membership";
 import UserDashboard from "../layouts/UserDashboard";
 import MyProfile from "../pages/userdashboard/MyProfile";
+import AdminDashboard from "../layouts/AdminDashboard";
+import AdminProfile from "../pages/admindashboard/AdminProfile";
+import MyPosts from "../pages/userdashboard/MyPosts";
+import AddPosts from "../pages/userdashboard/AddPosts";
+import ManageUsers from "../pages/admindashboard/ManageUsers";
+import ReportedComments from "../pages/admindashboard/ReportedComments";
+import MakeAnnouncement from "../pages/admindashboard/MakeAnnouncement";
 // import MyProfile from "../pages/userdashboard/MyProfile";
 // import CreateAssignment from "../pages/assignment/CreateAssignment";
 // import UpdateAssignment from "../pages/assignment/UpdateAssignment";
@@ -92,6 +99,37 @@ const router = createBrowserRouter([
             {
                 path: 'myprofile',
                 element: <MyProfile></MyProfile>,
+            },
+            {
+                path: 'myposts',
+                element: <MyPosts></MyPosts>,
+            },
+            {
+                path: 'addposts',
+                element: <AddPosts></AddPosts>,
+            },
+        ]
+    },
+    {
+        path: 'admindashboard',
+        element: <AdminDashboard></AdminDashboard>,
+        errorElement: <ErrorPage></ErrorPage>,
+        children: [
+            {
+                path: 'adminprofile',
+                element: <AdminProfile></AdminProfile>,
+            },
+            {
+                path: 'manageusers',
+                element: <ManageUsers></ManageUsers>,
+            },
+            {
+                path: 'reportedcomments',
+                element: <ReportedComments></ReportedComments>,
+            },
+            {
+                path: 'makeannouncements',
+                element: <MakeAnnouncement></MakeAnnouncement>,
             },
         ]
     },
