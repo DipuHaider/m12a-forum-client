@@ -25,7 +25,8 @@ const Register = () => {
         const photo_URL = e.target.photo_url.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        // const accepted = e.target.terms.checked;
+        const isadmin = e.target.isadmin.checked;
+        const ismember = 0;
         // console.log(name, email, password, accepted)
 
         //reset error
@@ -52,7 +53,7 @@ const Register = () => {
         createUser(email, password)
         .then(result => {
             //console.log(result.user);
-            const user = { email };
+            const user = { email, isadmin, ismember };
             // send data to the server
             fetch('http://localhost:5000/user', {
                 method: 'POST',
@@ -149,6 +150,12 @@ const Register = () => {
                                     }
                                 </span>
                             </div>
+                            <br />
+                            <div className="mb-2">
+                                <input type="checkbox" name="isadmin" id="isadmin" />
+                                <label className="ml-2 text-black" htmlFor="isadmin">Is Admin</label>
+                            </div>
+                            
                             {/* <br />
                             <div className="mb-2">
                                 <input type="checkbox" name="terms" id="terms" />

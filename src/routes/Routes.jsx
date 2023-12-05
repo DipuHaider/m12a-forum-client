@@ -34,6 +34,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>,
+                loader: () => fetch('http://localhost:5000/post'),
             },
             {
                 path: '/membership',
@@ -103,6 +104,7 @@ const router = createBrowserRouter([
             {
                 path: 'myposts',
                 element: <MyPosts></MyPosts>,
+                loader: () => fetch('http://localhost:5000/post'),
             },
             {
                 path: 'addposts',
