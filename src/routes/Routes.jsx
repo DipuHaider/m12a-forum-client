@@ -16,6 +16,7 @@ import AddPosts from "../pages/userdashboard/AddPosts";
 import ManageUsers from "../pages/admindashboard/ManageUsers";
 import ReportedComments from "../pages/admindashboard/ReportedComments";
 import MakeAnnouncement from "../pages/admindashboard/MakeAnnouncement";
+import SinglePost from "../pages/home/SinglePost";
 // import MyProfile from "../pages/userdashboard/MyProfile";
 // import CreateAssignment from "../pages/assignment/CreateAssignment";
 // import UpdateAssignment from "../pages/assignment/UpdateAssignment";
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>,
+            },
+            {
+                path: "post/:id",
+                element: <SinglePost></SinglePost>,
+                loader: ({params}) => fetch(`http://localhost:5000/post/${params.id}`),
             },
             // {
             //     path: '/userdashboard',

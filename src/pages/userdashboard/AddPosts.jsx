@@ -15,8 +15,9 @@ const AddPosts = () => {
         const post_desc = form.post_desc.value;
         const upvote = 0;
         const downvote = 0;
+        const post_time = new Date();
 
-        const newPost = { author_image, author_name, author_email, post_title, post_tag, post_desc, upvote, downvote }
+        const newPost = { author_image, author_name, author_email, post_title, post_tag, post_desc, upvote, downvote, post_time }
 
         console.log(newPost);
 
