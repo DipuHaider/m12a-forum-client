@@ -22,7 +22,7 @@ const AddPosts = () => {
         console.log(newPost);
 
         // send data to the server
-        fetch('http://localhost:5000/post', {
+        fetch('https://m12a-forum-server.vercel.app/post', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -55,7 +55,7 @@ const Register = () => {
             //console.log(result.user);
             const user = { email, isadmin, ismember };
             // send data to the server
-            fetch('http://localhost:5000/user', {
+            fetch('https://m12a-forum-server.vercel.app/user', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

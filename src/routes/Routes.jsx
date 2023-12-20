@@ -35,7 +35,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>,
-                loader: () => fetch('http://localhost:5000/post'),
+                loader: () => fetch('https://m12a-forum-server.vercel.app/post'),
             },
             {
                 path: '/membership',
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
             {
                 path: "post/:id",
                 element: <SinglePost></SinglePost>,
-                loader: ({params}) => fetch(`http://localhost:5000/post/${params.id}`),
+                loader: ({params}) => fetch(`https://m12a-forum-server.vercel.app/post/${params.id}`),
             },
             // {
             //     path: '/userdashboard',
@@ -110,7 +110,7 @@ const router = createBrowserRouter([
             {
                 path: 'myposts',
                 element: <MyPosts></MyPosts>,
-                loader: () => fetch('http://localhost:5000/post'),
+                loader: () => fetch('https://m12a-forum-server.vercel.app/post'),
             },
             {
                 path: 'addposts',
