@@ -17,7 +17,7 @@ const MyPosts = () => {
     return (
         <div className="bg-cyan-50 flex-grow py-12 px-10">
             <div className="flex mt-10 justify-center">
-                <div>
+                {/* <div>
                     <table className="min-w-full table-auto">
                         <thead className="justify-between">
                         <tr className="bg-cyan-600">
@@ -48,7 +48,29 @@ const MyPosts = () => {
                             ))}
                         </tbody>
                     </table>
-                </div>
+                </div> */}
+                <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
+                    <thead className="bg-gray-50">
+                        <tr>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Author</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Post Title</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Number of Votes</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Comment</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100 border-t border-gray-100">
+                    
+                    {filteredPosts.map((post) => (
+                            <MyPostCard
+                                key={post._id}
+                                post={post}
+                                posts={posts}
+                                setPosts={setPosts}
+                            ></MyPostCard>
+                            ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );

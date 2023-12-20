@@ -53,7 +53,7 @@ const Register = () => {
         createUser(email, password)
         .then(result => {
             //console.log(result.user);
-            const user = { email, isadmin, ismember };
+            const user = { name, email, isadmin, ismember };
             // send data to the server
             fetch('https://m12a-forum-server.vercel.app/user', {
                 method: 'POST',

@@ -130,6 +130,7 @@ const router = createBrowserRouter([
             {
                 path: 'manageusers',
                 element: <ManageUsers></ManageUsers>,
+                loader: () => fetch('https://m12a-forum-server.vercel.app/user'),
             },
             {
                 path: 'reportedcomments',
