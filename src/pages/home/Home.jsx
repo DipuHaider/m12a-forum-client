@@ -1,5 +1,5 @@
 import { useLoaderData } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Announcement from "./Announcement";
 import AnnouncementCard from "./AnnouncementCard";
 import Banner from "./Banner";
@@ -10,11 +10,24 @@ const Home = () => {
 
     const loadedPosts = useLoaderData();
     const [posts, setPosts] = useState(loadedPosts);
+    const [announcements, setAnnouncements] = useState([]);
+
+    useEffect(() => {
+        
+        fetch("https://m12a-forum-server.vercel.app/announcement")
+            .then((response) => response.json())
+            .then((data) => {
+                setAnnouncements(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching announcement data:", error);
+            });
+    }, []);
 
     return (
         <div>
             <Banner></Banner>
-            <div className="max-w-7xl mx-auto my-4">
+            <div className="max-w-6xl mx-auto my-4">
                 <Post></Post>
                 <div className='grid grid-cols-1 gap-3'>
                     {
@@ -32,19 +45,19 @@ const Home = () => {
             <div className="max-w-6xl mx-auto my-4">
                 <Announcement></Announcement>
                 <div className='grid grid-cols-4 gap-3'>
+                    {/* <AnnouncementCard></AnnouncementCard>
                     <AnnouncementCard></AnnouncementCard>
                     <AnnouncementCard></AnnouncementCard>
                     <AnnouncementCard></AnnouncementCard>
-                    <AnnouncementCard></AnnouncementCard>
-                    <AnnouncementCard></AnnouncementCard>
-                    {/* {
-                        brands?.map(brand => <BrandCard
-                            key={brand._id}
-                            brand={brand}
-                            brands={brands}
-                            setBrands={setBrands}
-                        ></BrandCard>)
-                    } */}
+                    <AnnouncementCard></AnnouncementCard> */}
+                    {
+                        announcements?.map(announcement => <AnnouncementCard
+                            key={announcement._id}
+                            announcement={announcement}
+                            announcements={announcements}
+                            setAnnouncements={setAnnouncements}
+                        ></AnnouncementCard>)
+                    }
                 </div>
             </div>
             

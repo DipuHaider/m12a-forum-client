@@ -9,7 +9,7 @@ const SinglePost = () => {
 
     return (
         
-        <div className="max-w-7xl mx-auto my-4 min-h-[500px]">
+        <div className="max-w-6xl mx-auto my-4 min-h-[500px]">
             <div className="card card-side bg-base-100">
                     <div className='flex flex-1 items-center justify-center'> 
                         <div className="rounded-xl border p-5 shadow-md w-11/12 bg-white">

@@ -3,7 +3,7 @@ import { FaAtom } from "react-icons/fa6";
 const Footer = () => {
     return (
         <div className="bg-slate-800">
-            <footer className="footer max-w-7xl mx-auto p-20 text-black ">
+            <footer className="footer max-w-6xl mx-auto p-20 text-black ">
                 <aside className="flex">
                 <a href="/"><div className="flex"><FaAtom className="text-4xl text-theme-primary"></FaAtom>&nbsp;<span className="py-2 text-white text-xs md:text-2xl font-extrabold italic">Dev&nbsp;</span><span className="py-2 text-theme-primary text-xs md:text-2xl font-extrabold italic">Forum</span>
                         </div></a>

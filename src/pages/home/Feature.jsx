@@ -1,7 +1,7 @@
 const Feature = () => {
     return (
         <div className="py-10 bg-blue-50">
-            <div className="max-w-7xl mx-auto p-10 text-theme-primary">
+            <div className="max-w-6xl mx-auto p-10 text-theme-primary">
                 <div className="lg:flex items-center justify-between">
                     <div className="lg:w-1/2 w-full">
                         <h1 role="heading" className="md:text-5xl text-3xl font-bold leading-10 mt-3 text-theme-light">Feature</h1>
