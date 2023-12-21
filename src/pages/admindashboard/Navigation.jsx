@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Navigation = () => {
     return (
-        <div className="py-6 px-2 w-1/3">
+        <div className="py-6 px-2 w-1/6">
             <div className="flex items-center space-x-4 p-2 bg-red-600 rounded-md">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">

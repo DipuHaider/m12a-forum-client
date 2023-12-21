@@ -7,10 +7,10 @@ const Faq = () => {
             <div className="collapse bg-blue-50">
                 <input type="radio" name="my-accordion-1" checked="checked" /> 
                 <div className="collapse-title text-xl font-medium">
-                    How can I join an online group study session?
+                    How can I join an Dev Forum session?
                 </div>
                 <div className="collapse-content"> 
-                    <p>To join an online group study session, you need to create an account on our platform (if you haven't already). After logging in, browse through the available study groups or create your own. Choose a group that matches your subject or topic of interest, and click "Join" or "Request to Join" to become a member. You can then participate in group discussions, schedule study sessions, and collaborate with other students.</p>
+                    <p>To join an Dev Forum session, you need to create an account on our platform (if you haven't already). After logging in, browse through the available study groups or create your own. Choose a group that matches your subject or topic of interest, and click "Join" or "Request to Join" to become a member. You can then participate in group discussions, schedule study sessions, and collaborate with other students.</p>
                 </div>
                 </div>
                 <div className="collapse bg-blue-50">

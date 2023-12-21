@@ -5,12 +5,12 @@ const Feature = () => {
                 <div className="lg:flex items-center justify-between">
                     <div className="lg:w-1/2 w-full">
                         <h1 role="heading" className="md:text-5xl text-3xl font-bold leading-10 mt-3 text-theme-light">Feature</h1>
-                        <p role="contentinfo" className="text-base leading-5 mt-5 text-theme-primary">An Online Group Study platform provides students with a collaborative learning environment where they can engage in group study sessions, share knowledge, and work together on academic assignments and projects. It brings the concept of a physical study group to the digital realm, enabling students to connect and collaborate regardless of their physical locations.</p>
+                        <p role="contentinfo" className="text-base leading-5 mt-5 text-theme-primary">An Dev Forum platform provides students with a collaborative learning environment where they can engage in group study sessions, share knowledge, and work together on academic assignments and projects. It brings the concept of a physical study group to the digital realm, enabling students to connect and collaborate regardless of their physical locations.</p>
 
                         <p role="contentinfo" className="text-base leading-5 mt-5 text-theme-primary">Seamless Assignment Management:
                         One of the core functionalities of such a platform is the seamless management of assignments. Students can create, submit, update, and discuss assignments within their study groups. The platform often includes features for assignment.</p>
 
-                        <p role="contentinfo" className="text-base leading-5 mt-5 text-theme-primary">Online Group Study platforms typically offer a resource-rich library where students can share and access study materials, such as lecture notes, presentations, textbooks, and practice exams. This shared knowledge repository ensures that valuable resources are readily available to all group members.</p>
+                        <p role="contentinfo" className="text-base leading-5 mt-5 text-theme-primary">Dev Forum platforms typically offer a resource-rich library where students can share and access study materials, such as lecture notes, presentations, textbooks, and practice exams. This shared knowledge repository ensures that valuable resources are readily available to all group members.</p>
                     </div>
                     <div className="xl:w-1/2 lg:w-7/12 relative w-full lg:mt-0 mt-12 md:px-8" role="list">
                         <img src="https://i.ibb.co/0n6DSS3/bgimg.png" className="absolute w-full -ml-12 mt-24" alt="background circle images" />

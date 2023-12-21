@@ -84,7 +84,7 @@ const Login = () => {
     return (
         <div className="hero min-h-screen">
             <Helmet>
-                <title>Login | Online Group Study</title>
+                <title>Login | Dev Forum</title>
             </Helmet>
             <div className="hero-content flex-col">
             <div className="text-center">
