@@ -30,7 +30,21 @@ const Home = () => {
             <div className="max-w-6xl mx-auto my-4">
                 <Post></Post>
                 <div className='grid grid-cols-1 gap-3'>
-                    {
+                    {posts.length === 0 ? (
+                        <div className="alert alert-error mt-4">
+                            No Posts found.
+                        </div>
+                        ) : (
+                        posts?.map((post) => (
+                            <PostCard
+                                key={post._id}
+                                post={post}
+                                posts={posts}
+                                setPosts={setPosts}
+                            ></PostCard>
+                        ))
+                    )}
+                    {/* {
                         posts?.map((post) => (
                         <PostCard
                             key={post._id}
@@ -39,25 +53,32 @@ const Home = () => {
                             setPosts={setPosts}
                         ></PostCard>
                         ))
-                    }
+                    } */}
                 </div>
             </div>
             <div className="max-w-6xl mx-auto my-4">
                 <Announcement></Announcement>
                 <div className='grid grid-cols-4 gap-3'>
-                    {/* <AnnouncementCard></AnnouncementCard>
-                    <AnnouncementCard></AnnouncementCard>
-                    <AnnouncementCard></AnnouncementCard>
-                    <AnnouncementCard></AnnouncementCard>
-                    <AnnouncementCard></AnnouncementCard> */}
-                    {
+                    {announcements.length === 0 ? (
+                        <div className="alert alert-error mt-4">
+                            No Announcements found.
+                        </div>
+                        ) : (
                         announcements?.map(announcement => <AnnouncementCard
                             key={announcement._id}
                             announcement={announcement}
                             announcements={announcements}
                             setAnnouncements={setAnnouncements}
                         ></AnnouncementCard>)
-                    }
+                    )}
+                    {/* {
+                        announcements?.map(announcement => <AnnouncementCard
+                            key={announcement._id}
+                            announcement={announcement}
+                            announcements={announcements}
+                            setAnnouncements={setAnnouncements}
+                        ></AnnouncementCard>)
+                    } */}
                 </div>
             </div>
             

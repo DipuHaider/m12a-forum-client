@@ -51,10 +51,10 @@ const SinglePost = () => {
                                     <span>{downvote}</span>
                                 </div>
                                 <div className="flex cursor-pointer items-center transition hover:text-slate-600">
-                                    <button className="rounded-2xl border bg-red-200 px-3 py-1 text-sm font-semibold text-theme-primary" >Comment</button>
+                                    <button className="rounded-2xl border bg-blue-100 px-3 py-1 text-sm font-semibold text-theme-primary" >Comment</button>
                                 </div>
                                 <div className="flex cursor-pointer items-center transition hover:text-slate-600">
-                                    <button className="rounded-2xl border bg-red-200 px-3 py-1 text-sm font-semibold text-theme-primary" >Share</button>
+                                    <button className="rounded-2xl border bg-blue-100 px-3 py-1 text-sm font-semibold text-theme-primary" >Share</button>
                                 </div>
                             </div>
                         </div>

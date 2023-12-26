@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import Swal from 'sweetalert2'
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AddPosts = () => {
+
+    const { user } = useContext(AuthContext);
 
     const handleAddPost = event => {
         event.preventDefault();
@@ -64,13 +68,13 @@ const AddPosts = () => {
                             <div className="form-control md:w-1/2 ml-4">
                                 <span className='py-4'>Author Name</span>
                                 <label className="input-group">
-                                    <input type="text" name="author_name" placeholder="Author name" className="input input-bordered w-full" />
+                                    <input type="text" name="author_name" defaultValue={user.displayName} placeholder="Author name" className="input input-bordered w-full" />
                                 </label>
                             </div>
                             <div className="form-control md:w-1/2 ml-4">
                                 <span className='py-4'>Author Email</span>
                                 <label className="input-group">
-                                    <input type="email" name="author_email" placeholder="Author email" className="input input-bordered w-full" />
+                                    <input type="email" name="author_email"  defaultValue={user.email} placeholder="Author email" className="input input-bordered w-full" />
                                 </label>
                             </div>
                         </div>
@@ -85,12 +89,12 @@ const AddPosts = () => {
                             <div className="form-control md:w-1/2 ml-4">
                                 <span className='py-4'>Post Tag</span>
                                 <select name="post_tag" className="select select-bordered w-full max-w-xs">
-                                    <option>javascript</option>
-                                    <option>php</option>
-                                    <option>react</option>
-                                    <option>nodejs</option>
-                                    <option>css</option>
-                                    <option>mongodb</option>
+                                    <option>JavaScript</option>
+                                    <option>PHP</option>
+                                    <option>React</option>
+                                    <option>Nodejs</option>
+                                    <option>CSS</option>
+                                    <option>MongoDB</option>
                                 </select>
                             </div>
                         </div>

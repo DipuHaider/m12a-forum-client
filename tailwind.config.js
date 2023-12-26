@@ -7,7 +7,8 @@ export default {
         inter: "Inter, sans-serif", // Adds a new `font-inter` class
       },
       colors: {
-        "theme-primary": "#ED1C24",
+        // "theme-primary": "#ED1C24",
+        "theme-primary": "#005dc9",
         "theme-dark": "#0B0B0B",
         "theme-txt40": "#0B0B0B66",
         "theme-txt50": "#0B0B0B80",
