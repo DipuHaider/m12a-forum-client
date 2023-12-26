@@ -4,7 +4,7 @@ const AnnouncementCard = ({ announcement, announcements, setAnnouncements }) => 
 
     return (
         <article className="container flex flex-col bg-white shadow-lg rounded-2xl p-5">
-            <div class="flex-1">
+            <div className="flex-1">
                 <div className="flex items-center py-3 space-x-2">
                     <img src={author_image} alt={author_image} className="h-8 w-8 rounded-full" />
                     <h6>{author_name}</h6>
