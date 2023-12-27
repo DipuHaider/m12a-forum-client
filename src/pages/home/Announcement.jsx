@@ -8,7 +8,7 @@ const Announcement = () => {
         data-aos-duration="1000"
         data-aos-easing="ease-in-out">
             <div className="flex justify-center items-center text-center space-x-2">
-                <h2 className="text-4xl text-theme-primary font-extralight mb-2">Announcements </h2><FaBullhorn className="text-4xl text-theme-primary"></FaBullhorn>
+                <h2 className="text-4xl text-theme-primary font-extralight mb-2">Announcements </h2><FaBullhorn className="text-2xl text-theme-primary"></FaBullhorn>
             </div>
         </div>
     );
