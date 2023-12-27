@@ -35,7 +35,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>,
-                loader: () => fetch('https://m12a-forum-server.vercel.app/post'),
+                loader: () => fetch('https://m12a-forum-server.vercel.app/postsCount'),
             },
             {
                 path: '/membership',

@@ -5,12 +5,22 @@ import AnnouncementCard from "./AnnouncementCard";
 import Banner from "./Banner";
 import Post from "./Post";
 import PostCard from "./PostCard";
-import ReactPaginate from 'react-paginate';
 
 const Home = () => {
 
-    const loadedPosts = useLoaderData();
-    const [posts, setPosts] = useState(loadedPosts);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const {count} = useLoaderData();
+    const numberOfPages = Math.ceil(count/itemsPerPage);
+    // const pages = [];
+    // for (let i=0; i < numberOfPages; i++){
+    //     pages.push(i);
+    // }
+    // console.log(pages)
+    const pages = [...Array(numberOfPages).keys()];
+    // console.log(pages)
+
+    const [posts, setPosts] = useState([]);
     const [announcements, setAnnouncements] = useState([]);
 
     const [activeTab, setActiveTab] = useState("CSS"); // Set the default tab
@@ -19,6 +29,18 @@ const Home = () => {
         (post) => post.post_tag === activeTab
     );
     const post_tags = Array.from(new Set(posts.map((post) => post.post_tag)));
+
+    useEffect(() => {
+        
+        fetch("https://m12a-forum-server.vercel.app/post")
+            .then((response) => response.json())
+            .then((data) => {
+                setPosts(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching post data:", error);
+            });
+    }, []);
 
     useEffect(() => {
         
@@ -31,6 +53,26 @@ const Home = () => {
                 console.error("Error fetching announcement data:", error);
             });
     }, []);
+
+    const handleItemsPerPage = e =>{
+
+        const val = parseInt(e.target.value);
+        console.log(val)
+        setItemsPerPage(val);
+        setCurrentPage(0);
+    }
+
+    const handlePreviousPage = () => {
+        if(currentPage > 0){
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const handleNextPage = () => {
+        if(currentPage < pages.length){
+            setCurrentPage(currentPage + 1);
+        }
+    }
 
     return (
         <div>
@@ -80,6 +122,26 @@ const Home = () => {
                         ></PostCard>
                         ))
                     } */}
+                    <div className="max-w-6xl mx-auto my-10" data-aos="fade-up"data-aos-offset="200"
+                        data-aos-delay="50"
+                        data-aos-duration="1000"
+                        data-aos-easing="ease-in-out">
+                        <div className="flex justify-center items-center text-center space-x-2">
+                            <p>Current Page {currentPage}</p>
+                            <button onClick={handlePreviousPage} className='text-base bg-white border-theme-primary hover:bg-blue-200 text-theme-primary hover:text-theme-primary rounded shadow hover:shadow-sm py-2 px-4 border border-none hover:border-blue-500'>Prev</button>
+                        {
+                            pages.map(page => <button onClick={() => setCurrentPage(page)}  key={page} className={`btn ${
+                                currentPage === page ? "btn-active bg-theme-primary text-white border-blue-500 hover:border-blue-500  hover:bg-blue-200 hover:text-theme-primary" : "text-base bg-white border-theme-primary hover:bg-blue-200 text-theme-primary hover:text-theme-primary rounded shadow hover:shadow-sm py-2 px-4 border border-none hover:border-blue-500"
+                                }`}>{page}</button>)
+                        }
+                            <button onClick={handleNextPage} className='text-base bg-white border-theme-primary hover:bg-blue-200 text-theme-primary hover:text-theme-primary rounded shadow hover:shadow-sm py-2 px-4 border border-none hover:border-blue-500'>Next</button>
+                            <select value={itemsPerPage} onChange={handleItemsPerPage} name="" id="" className='bg-blue-300 py-2 px-4 rounded shadow'>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="max-w-6xl mx-auto my-4">
