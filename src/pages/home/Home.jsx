@@ -24,13 +24,13 @@ const Home = () => {
     const [posts, setPosts] = useState([]);
     const [announcements, setAnnouncements] = useState([]);
 
-    /*  for tabbed content
-    * const [activeTab, setActiveTab] = useState("CSS"); // Set the default tab
-    * const filteredPosts = posts.filter(
-    *     (post) => post.post_tag === activeTab
-    * );
-    * const post_tags = Array.from(new Set(posts.map((post) => post.post_tag)));
-    */
+    //   for tabbed content
+    const [activeTab, setActiveTab] = useState("CSS"); // Set the default tab
+    const filteredPosts = posts.filter(
+        (post) => post.post_tag === activeTab
+    );
+    const post_tags = Array.from(new Set(posts.map((post) => post.post_tag)));
+    
 
     useEffect(() => {
         
@@ -81,7 +81,7 @@ const Home = () => {
             <div className="max-w-6xl mx-auto my-2">
                 <Post></Post>
                 {/* tabbed content */}
-                {/* <div className="max-w-6xl mx-auto my-10" data-aos="fade-up"data-aos-offset="200"
+                <div className="max-w-6xl mx-auto my-10" data-aos="fade-up"data-aos-offset="200"
                     data-aos-delay="50"
                     data-aos-duration="1000"
                     data-aos-easing="ease-in-out">
@@ -98,7 +98,7 @@ const Home = () => {
                         </button>
                         ))}
                     </div>
-                </div> */}
+                </div>
                 <div className='grid grid-cols-1 gap-3'>
                     {posts.length === 0 ? (
                         <div className="alert alert-error mt-4">
