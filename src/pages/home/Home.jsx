@@ -22,14 +22,17 @@ const Home = () => {
     // console.log(pages)
 
     const [posts, setPosts] = useState([]);
+    const [allPosts, setAllPosts] = useState([]);
     const [announcements, setAnnouncements] = useState([]);
 
+    const allTags = Array.from(new Set(allPosts.map((allPost) => allPost.post_tag)));
+
     //   for tabbed content
-    const [activeTab, setActiveTab] = useState("CSS"); // Set the default tab
-    const filteredPosts = posts.filter(
-        (post) => post.post_tag === activeTab
-    );
-    const post_tags = Array.from(new Set(posts.map((post) => post.post_tag)));
+    const [activeTab, setActiveTab] = useState("React"); // Set the default tab
+    // const filteredPosts = posts.filter(
+    //     (post) => post.post_tag === activeTab
+    // );
+    // const post_tags = Array.from(new Set(posts.map((post) => post.post_tag)));
     
 
     useEffect(() => {
@@ -56,6 +59,18 @@ const Home = () => {
             });
     }, []);
 
+    useEffect(() => {
+        
+        fetch("https://m12a-forum-server.vercel.app/allposts")
+            .then((response) => response.json())
+            .then((data) => {
+                setAllPosts(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching All Post data:", error);
+            });
+    }, []);
+
     const handleItemsPerPage = e =>{
         const val = parseInt(e.target.value);
         console.log(val)
@@ -75,6 +90,22 @@ const Home = () => {
         }
     }
 
+    const handleSearchByTag = (post_tag) => {
+        const searchField = document.getElementById(post_tag);
+        const searchText = searchField.value;
+        console.log(searchText);
+        loadByTag(searchText);
+    };
+
+    const loadByTag = async (searchText) => {
+        const res = await fetch(`https://m12a-forum-server.vercel.app/post?post_tag=${searchText}&page=${currentPage}&size=${itemsPerPage}`);
+        const data = await res.json();
+        console.log(data)
+        setPosts(data);
+        // const foundedPosts = data;
+        // displayPosts(foundedPosts);
+    }
+
     return (
         <div>
             <Banner></Banner>
@@ -86,7 +117,28 @@ const Home = () => {
                     data-aos-duration="1000"
                     data-aos-easing="ease-in-out">
                     <div className="flex justify-center items-center text-center space-x-2">
-                        {post_tags.map((post_tag) => (
+                            {/* <button
+                                key="CSS" value="CSS" id="search_button"
+                                className={"text-base bg-white border-theme-primary hover:bg-blue-200 text-theme-primary hover:text-theme-primary rounded shadow hover:shadow-sm py-2 px-4 border border-none hover:border-blue-500"}
+                                onClick={() => handleSearchByTag()}
+                            >
+                                CSS
+                            </button> */}
+                        {allTags.map((post_tag) => (
+                            <button
+                                key={post_tag}
+                                value={post_tag}
+                                id={post_tag}
+                                className={`btn ${
+                                activeTab === post_tag ? "btn-active bg-theme-primary text-white border-blue-500 hover:border-blue-500  hover:bg-blue-200 hover:text-theme-primary" : "text-base bg-white border-theme-primary hover:bg-blue-200 text-theme-primary hover:text-theme-primary rounded shadow hover:shadow-sm py-2 px-4 border border-none hover:border-blue-500"
+                                }`}
+                                onClick={() => handleSearchByTag(post_tag)}
+                            >
+                                {post_tag}
+                            </button>
+                        ))}
+
+                        {/* {post_tags.map((post_tag) => (
                         <button
                             key={post_tag}
                             className={`btn ${
@@ -96,7 +148,7 @@ const Home = () => {
                         >
                             {post_tag}
                         </button>
-                        ))}
+                        ))} */}
                     </div>
                 </div>
                 <div className='grid grid-cols-1 gap-3'>

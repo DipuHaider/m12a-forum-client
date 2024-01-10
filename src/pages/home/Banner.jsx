@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 
 const Banner = () => {
 
@@ -27,7 +26,7 @@ const Banner = () => {
         loadPost(searchText);
     };
     const loadPost = async (searchText) => {
-        const res = await fetch(`https://m12a-forum-server.vercel.app/post?post_tag=${searchText}`);
+        const res = await fetch(`https://m12a-forum-server.vercel.app/post?post_tag=${searchText}&size=5`);
         const data = await res.json();
         //console.log(data)
         const foundedPosts = data;
@@ -42,36 +41,18 @@ const Banner = () => {
         foundedPosts.forEach(foundedPost => {
             // console.log(foundedPost)
             const resultCard = document.createElement('div');
-            resultCard.classList = `flex flex-row overflow-x-auto`;
+            resultCard.classList = `flex flex-row py-2 rounded w-full`;
             resultCard.innerHTML = `
-            <tbody>
+            <a href="/post/${foundedPost._id}" class="btn btn-ghost btn-md border-2 border-white bg-gray-800 hover:border-theme-primary hover:bg-gray-900">
                 <tr>
                     <td>
-                        <div className="flex items-center gap-3">
-                            <div className="avatar">
-                                <div className="mask mask-squircle w-4 h-4">
-                                    <img src="${foundedPost.author_image}" />
-                                </div>
-                            </div>
-                            <div>
-                                <div className="font-bold">${foundedPost.author_name}</div>
-                                <div className="text-sm opacity-50">${foundedPost.author_email}</div>
-                            </div>
-                        </div>
+                        <p class="text-blue-200">${foundedPost.post_tag}: </p>
                     </td>
                     <td>
-                    ${foundedPost.post_title}
-                            <br/>
-                        <span className="badge badge-ghost badge-sm">${foundedPost.post_time}</span>
+                        ${foundedPost.post_title}
                     </td>
-                    <th>;
-                        
-                        <a href="/post/${foundedPost._id}" class="btn btn-ghost btn-xs">Details</a>
-                    </th>
                 </tr>
-                </tbody>
-            </table>
-            </div>
+            </a>
             `;
             resultContainer.appendChild(resultCard);
         });
@@ -113,7 +94,7 @@ const Banner = () => {
                         </button>
                     </div>
                 </div>
-                <div id="result-container" className="grid grid-cols-1 justify-center items-center text-center space-x-2">
+                <div id="result-container" className="grid grid-cols-1 justify-start items-start text-center">
                     
                 </div>
                 {/* <div className="flex justify-center items-center text-center space-x-2">
@@ -125,6 +106,23 @@ const Banner = () => {
                     </button>
                     ))}
                 </div> */}
+                {/* <td>
+                        <div className="flex items-center gap-3">
+                            <div className="avatar">
+                                <div className="mask mask-squircle w-4 h-4">
+                                    <img src="${foundedPost.author_image}" />
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div className="flex items-center gap-3">
+                            <div>
+                                <div className="font-bold">${foundedPost.author_name}</div>
+                                <div className="text-sm opacity-50">${foundedPost.author_email}</div>
+                            </div>
+                        </div>
+                    </td> */}
             </div>
         </div>
     );

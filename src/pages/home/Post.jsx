@@ -7,7 +7,7 @@ const Post = () => {
         data-aos-duration="1000"
         data-aos-easing="ease-in-out">
             <div className="flex justify-center items-center text-center space-x-2">
-                <h2 className="text-4xl text-theme-primary font-extralight mb-2">Popular Posts </h2><FaPenClip className="text-2xl text-theme-primary"></FaPenClip>
+                <h2 className="text-4xl text-theme-primary font-extralight mb-2">Posts </h2><FaPenClip className="text-2xl text-theme-primary"></FaPenClip>
             </div>
         </div>
     );
