@@ -11,8 +11,12 @@ const Home = () => {
     /*  for pagination */
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(5);
-    const {count} = useLoaderData();
-    const numberOfPages = Math.ceil(count/itemsPerPage);
+    let {count} = useLoaderData();
+    // console.log(count)
+    const [countLoaded, setCountLoaded] = useState(count); 
+    console.log("countloaded", countLoaded)
+
+    const numberOfPages = Math.ceil(countLoaded/itemsPerPage);
     // const pages = [];
     // for (let i=0; i < numberOfPages; i++){
     //     pages.push(i);
@@ -22,13 +26,15 @@ const Home = () => {
     // console.log(pages)
 
     const [posts, setPosts] = useState([]);
+    
     const [allPosts, setAllPosts] = useState([]);
+    
     const [announcements, setAnnouncements] = useState([]);
 
     const allTags = Array.from(new Set(allPosts.map((allPost) => allPost.post_tag)));
 
     //   for tabbed content
-    const [activeTab, setActiveTab] = useState("React"); // Set the default tab
+    const [activeTab, setActiveTab] = useState("all"); // Set the default tab
     // const filteredPosts = posts.filter(
     //     (post) => post.post_tag === activeTab
     // );
@@ -95,6 +101,7 @@ const Home = () => {
         const searchText = searchField.value;
         console.log(searchText);
         loadByTag(searchText);
+        setActiveTab(searchText);
     };
 
     const loadByTag = async (searchText) => {
@@ -102,8 +109,13 @@ const Home = () => {
         const data = await res.json();
         console.log(data)
         setPosts(data);
-        // const foundedPosts = data;
-        // displayPosts(foundedPosts);
+        console.log(searchText)
+        if (searchText != 'all'){
+            setCurrentPage(0);
+            setCountLoaded(data.length);
+        } else {
+            setCountLoaded(count);
+        }
     }
 
     return (
@@ -117,13 +129,17 @@ const Home = () => {
                     data-aos-duration="1000"
                     data-aos-easing="ease-in-out">
                     <div className="flex justify-center items-center text-center space-x-2">
-                            {/* <button
-                                key="CSS" value="CSS" id="search_button"
-                                className={"text-base bg-white border-theme-primary hover:bg-blue-200 text-theme-primary hover:text-theme-primary rounded shadow hover:shadow-sm py-2 px-4 border border-none hover:border-blue-500"}
-                                onClick={() => handleSearchByTag()}
+                        <button
+                                key="all"
+                                value="all"
+                                id="all"
+                                className={`btn ${
+                                activeTab === "all" ? "btn-active bg-theme-primary text-white border-blue-500 hover:border-blue-500  hover:bg-blue-200 hover:text-theme-primary" : "text-base bg-white border-theme-primary hover:bg-blue-200 text-theme-primary hover:text-theme-primary rounded shadow hover:shadow-sm py-2 px-4 border border-none hover:border-blue-500"
+                                }`}
+                                onClick={() => handleSearchByTag('all')}
                             >
-                                CSS
-                            </button> */}
+                                All
+                        </button>
                         {allTags.map((post_tag) => (
                             <button
                                 key={post_tag}
