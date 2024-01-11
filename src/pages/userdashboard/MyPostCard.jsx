@@ -39,7 +39,9 @@ const MyPostCard = ({ post, posts, setPosts }) => {
                     <span className="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600">Develop</span>
                 </div> */}
                 </td>
-                <td className="px-6 py-4"></td>
+                <td className="px-6 py-4">
+                    <button className="btn btn-xs btn-outline btn-info">Comments</button>
+                </td>
                 <td className="px-6 py-4">
                 <div className="flex justify-center gap-4">
                         <a x-data="{ tooltip: 'Delete' }" href="#">
