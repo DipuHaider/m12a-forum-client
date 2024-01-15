@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { AuthContext } from "../../providers/AuthProvider";
 
 const AddPosts = () => {
