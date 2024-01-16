@@ -1,24 +1,33 @@
 import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { formatDate } from "../../utilities/localstorage";
+import { useContext } from "react";
 import Swal from 'sweetalert2';
+import { AuthContext } from "../../providers/AuthProvider";
+import CommentCard from "./CommentCard";
 
 const SinglePost = () => {
 
+    const { user } = useContext(AuthContext);
     const post = useLoaderData();
     const { _id, author_image, author_name, author_email, post_title, post_tag, post_desc, upvote, downvote, post_time } = post;
     const [currentUpVote, setCurrentUpVote] = useState(upvote);
     const [currentDownVote, setCurrentDownVote] = useState(downvote);
+    const [comments, setComments] = useState([]);
+    console.log(comments)
     
     const handleUpVote = () => {
-        const updatedUpVote = upvote + 1;
+        // const updatedUpVote = upvote + 1;
+        const updatedUpVote = currentUpVote + 1;
 
-        fetch(`https://m12a-forum-server.vercel.app/post/${_id}`, {
+        const updatedVotes = { upvote: updatedUpVote };
+
+        fetch(`https://m12a-forum-server.vercel.app/post/upvote/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify( { upvote: updatedUpVote })
+            body: JSON.stringify( updatedVotes )
         })
             .then(res => res.json())
             .then(data => {
@@ -27,20 +36,22 @@ const SinglePost = () => {
                     // If the upvote is successfully updated on the server, show a success message
                     Swal.fire({
                         title: 'Success!',
-                        text: 'Upvoted Successfully',
+                        text: 'Upvoted Successfully, Also Buttons are disabled',
                         icon: 'success',
                         confirmButtonText: 'Cool'
                     })
                     // Update the local state with the new upvote count
                     setCurrentUpVote(updatedUpVote);
-                } else {
                     // Disable the button by adding a 'Disable' class
                     const upVoteButton = document.getElementById('handleUpVote');
                     upVoteButton.classList.add('btn-disabled');
+                    const downVoteButton = document.getElementById('handleDownVote');
+                    downVoteButton.classList.add('btn-disabled');
+                } else {
 
                     Swal.fire({
                         title: 'Sorry!',
-                        text: 'Already Upvoted, Also Button is disabled',
+                        text: 'Already Voted, Also Buttons are disabled',
                         icon: 'warning',
                         confirmButtonText: 'Exit'
                     })
@@ -49,14 +60,17 @@ const SinglePost = () => {
     }
 
     const handleDownVote = () => {
-        const updatedDownVote = downvote + 1;
+        // const updatedDownVote = downvote + 1;
+        const updatedDownVote = currentDownVote + 1;
 
-        fetch(`https://m12a-forum-server.vercel.app/post/${_id}`, {
+        const updatedVotes = { downvote: updatedDownVote };
+
+        fetch(`https://m12a-forum-server.vercel.app/post/downvote/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify( { downvote: updatedDownVote })
+            body: JSON.stringify( updatedVotes )
         })
             .then(res => res.json())
             .then(data => {
@@ -65,20 +79,23 @@ const SinglePost = () => {
                     // If the downvote is successfully updated on the server, show a success message
                     Swal.fire({
                         title: 'Success!',
-                        text: 'Downvoted Successfully',
+                        text: 'Downvoted Successfully, Also Buttons are disabled',
                         icon: 'success',
                         confirmButtonText: 'Cool'
                     })
                     // Update the local state with the new downvote count
                     setCurrentDownVote(updatedDownVote);
-                } else {
+
                     // Disable the button by adding a 'Disable' class
+                    const upVoteButton = document.getElementById('handleUpVote');
+                    upVoteButton.classList.add('btn-disabled');
                     const downVoteButton = document.getElementById('handleDownVote');
                     downVoteButton.classList.add('btn-disabled');
-
+                } else {
+                    
                     Swal.fire({
                         title: 'Sorry!',
-                        text: 'Already Downvoted, Also Button is disabled',
+                        text: 'Already Voted, Also Buttons are disabled',
                         icon: 'warning',
                         confirmButtonText: 'Exit'
                     })
@@ -86,9 +103,71 @@ const SinglePost = () => {
             });
     }
 
-    const handleComment = () => {
-        console.log("Comment");
+    const handleCommentInput = () => {
+        const commentInput = document.getElementById('commentInput');
+        commentInput.classList.remove('hidden');
+        const commentSubmitButton = document.getElementById('commentSubmitButton');
+        commentSubmitButton.classList.remove('hidden');
     }
+
+    const handleComment = event => {
+        event.preventDefault();
+
+        const form = event.target;
+
+        const comment_post_id = _id;
+        const comment_input = form.comment_input.value;
+        const comment_author_name = user.displayName;
+        const comment_author_email = user.email;
+        const comment_author_img = user.photo_URL;
+
+        const newComment = { comment_post_id, comment_input, comment_author_name,comment_author_email, comment_author_img }
+
+        console.log(newComment);
+
+        // send data to the server
+        fetch('https://m12a-forum-server.vercel.app/comment', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newComment)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if(data.insertedId){
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'You commented successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                        })
+                form.reset();
+                }
+            })
+
+        const commentInput = document.getElementById('commentInput');
+        commentInput.classList.add('hidden');
+        const commentSubmitButton = document.getElementById('commentSubmitButton');
+        commentSubmitButton.classList.add('hidden');
+        const commentButton = document.getElementById('commentButton');
+        commentButton.classList.add('btn-disabled');
+        commentButton.innerText = 'Commented';
+
+    }
+
+    useEffect(() => {
+        
+        fetch("https://m12a-forum-server.vercel.app/comment")
+            .then((response) => response.json())
+            .then((data) => {
+                setComments(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching comment data:", error);
+            });
+    }, []);
 
     return (
         
@@ -119,7 +198,7 @@ const SinglePost = () => {
                         </div>
 
                         <div>
-                        <div className="flex items-center justify-between text-slate-500">
+                        <div className="flex flex-col items-start justify-between text-slate-500">
                             <div className="flex space-x-4 md:space-x-8">
                                 <button id="handleUpVote" onClick={handleUpVote} className="flex cursor-pointer items-center transition hover:text-slate-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="mr-1.5 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -133,12 +212,33 @@ const SinglePost = () => {
                                     </svg>
                                     <span>{currentDownVote}</span>
                                 </button>
-                                <div className="flex cursor-pointer items-center transition hover:text-slate-600">
-                                    <button onClick={handleComment} className="rounded-2xl border bg-blue-100 px-3 py-1 text-sm font-semibold text-theme-primary" >Comment</button>
+                                <div className="flex cursor-pointer items-center transition hover:text-slate-600 space-x-2">
+                                    <button id="commentButton" onClick={handleCommentInput} className="rounded-2xl border bg-purple-100 px-3 py-1 text-sm font-semibold text-purple-500" >Comment</button>
+                                    <form onSubmit={handleComment} className="flex w-full space-x-2">
+                                        <input id="commentInput" name="comment_input" type="text" placeholder="Comments here" className="input input-bordered input-sm w-96 hidden border-purple-500 border-2" />
+                                        {/* <button id="commentSubmitButton" className="rounded-lg bg-transparent px-1 py-1 text-sm font-normal border-purple-500 border-2 text-purple-500 hidden hover:bg-purple-600 hover:text-white">Submit</button> */}
+                                        <input type="submit" value="Add Comment" id="commentSubmitButton" className="rounded-lg bg-transparent px-1 py-1 text-sm font-normal border-purple-500 border-2 text-purple-500 hidden hover:bg-purple-600 hover:text-white" required/>
+                                    </form>
                                 </div>
                                 <div className="flex cursor-pointer items-center transition hover:text-slate-600">
                                     <button className="rounded-2xl border bg-blue-100 px-3 py-1 text-sm font-semibold text-theme-primary" >Share</button>
                                 </div>
+                            </div>
+                            <div className="grid grid-cols-1 justify-start items-start text-center space-x-4 md:space-x-8 border border-1 border-purple-500 my-4 p-4 rounded-lg">
+                                {comments.length === 0 ? (
+                                    <div className="mx-4">
+                                        <p>No Comments Yet.</p>
+                                    </div>
+                                    ) : (
+                                    comments?.map((comment) => (
+                                        <CommentCard
+                                            key={comment._id}
+                                            comment={comment}
+                                            comments={comments}
+                                            setComments={setComments}
+                                        ></CommentCard>
+                                    ))
+                                )}
                             </div>
                         </div>
                         </div>
