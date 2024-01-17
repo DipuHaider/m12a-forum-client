@@ -5,6 +5,19 @@ import { useContext } from "react";
 import Swal from 'sweetalert2';
 import { AuthContext } from "../../providers/AuthProvider";
 import CommentCard from "./CommentCard";
+import {
+    FacebookShareButton,
+    InstapaperShareButton,
+    LinkedinShareButton,
+    TwitterShareButton,
+    WhatsappShareButton,
+    FacebookIcon,
+    InstapaperIcon,
+    LinkedinIcon,
+    TwitterIcon,
+    WhatsappIcon,
+  } from 'react-share';
+  
 
 const SinglePost = () => {
 
@@ -14,7 +27,12 @@ const SinglePost = () => {
     const [currentUpVote, setCurrentUpVote] = useState(upvote);
     const [currentDownVote, setCurrentDownVote] = useState(downvote);
     const [comments, setComments] = useState([]);
-    console.log(comments)
+    const filteredComments = comments.filter(
+        (comment) => comment.comment_post_id === _id
+    );
+    console.log(filteredComments)
+    const shareUrl = `https://netlify/tk/post/${_id}`;
+    // const shareUrl = 'https://www.pakkamarwadi.tk/';
     
     const handleUpVote = () => {
         // const updatedUpVote = upvote + 1;
@@ -116,12 +134,15 @@ const SinglePost = () => {
         const form = event.target;
 
         const comment_post_id = _id;
-        const comment_input = form.comment_input.value;
+        const comment_text = form.comment_text.value;
         const comment_author_name = user.displayName;
         const comment_author_email = user.email;
         const comment_author_img = user.photo_URL;
+        const comment_feedback = '';
+        const comment_report = '';
 
-        const newComment = { comment_post_id, comment_input, comment_author_name,comment_author_email, comment_author_img }
+
+        const newComment = { comment_post_id, comment_text, comment_author_name, comment_author_email, comment_author_img, comment_feedback, comment_report }
 
         console.log(newComment);
 
@@ -173,28 +194,27 @@ const SinglePost = () => {
         
         <div className="max-w-6xl mx-auto my-4 min-h-[500px]">
             <div className="card card-side bg-base-100">
-                    <div className='flex flex-1 items-center justify-center'> 
-                        <div className="rounded-xl border p-5 shadow-md w-11/12 bg-white">
+                <div className='flex flex-1 items-center justify-center'> 
+                    <div className="rounded-xl border p-5 shadow-md w-11/12 bg-white">
                         <div className="flex w-full items-center justify-between border-b pb-3">
-                        <div className="flex items-center space-x-3">
-                            <img src={author_image} alt={author_image} className="h-8 w-8 rounded-full" />
-                            <div className="space-y-1">
-                                <div className="text-lg font-bold text-slate-700">{author_name}</div> 
-                                <h4 className="text-sm font-bold text-slate-500">{author_email}</h4> 
+                            <div className="flex items-center space-x-3">
+                                <img src={author_image} alt={author_image} className="h-8 w-8 rounded-full" />
+                                <div className="space-y-1">
+                                    <div className="text-lg font-bold text-slate-700">{author_name}</div> 
+                                    <h4 className="text-sm font-bold text-slate-500">{author_email}</h4> 
+                                </div>
                             </div>
-                            
-                        </div>
-                        <div className="flex items-center space-x-8">
-                            <div className="text-xs text-neutral-500">Posted on: {post_time}</div>
-                            <button className="rounded-2xl border bg-neutral-100 px-3 py-1 text-xs font-semibold text-theme-primary">{post_tag}</button>
-                            {/* <div className="text-xs text-neutral-500">2 hours ago</div> */}
-                            
-                        </div>
+                            <div className="flex items-center space-x-8">
+                                <div className="text-xs text-neutral-500">Posted on: {post_time}</div>
+                                <button className="rounded-2xl border bg-neutral-100 px-3 py-1 text-xs font-semibold text-theme-primary">{post_tag}</button>
+                                {/* <div className="text-xs text-neutral-500">2 hours ago</div> */}
+                                
+                            </div>
                         </div>
 
                         <div className="mt-4 mb-6">
-                        <div className="mb-3 text-xl font-bold text-theme-primary">{post_title}</div>
-                        <div className="text-sm text-neutral-600">{post_desc}</div>
+                            <div className="mb-3 text-xl font-bold text-theme-primary">{post_title}</div>
+                            <div className="text-sm text-neutral-600">{post_desc}</div>
                         </div>
 
                         <div>
@@ -215,22 +235,77 @@ const SinglePost = () => {
                                 <div className="flex cursor-pointer items-center transition hover:text-slate-600 space-x-2">
                                     <button id="commentButton" onClick={handleCommentInput} className="rounded-2xl border bg-purple-100 px-3 py-1 text-sm font-semibold text-purple-500" >Comment</button>
                                     <form onSubmit={handleComment} className="flex w-full space-x-2">
-                                        <input id="commentInput" name="comment_input" type="text" placeholder="Comments here" className="input input-bordered input-sm w-96 hidden border-purple-500 border-2" />
-                                        {/* <button id="commentSubmitButton" className="rounded-lg bg-transparent px-1 py-1 text-sm font-normal border-purple-500 border-2 text-purple-500 hidden hover:bg-purple-600 hover:text-white">Submit</button> */}
-                                        <input type="submit" value="Add Comment" id="commentSubmitButton" className="rounded-lg bg-transparent px-1 py-1 text-sm font-normal border-purple-500 border-2 text-purple-500 hidden hover:bg-purple-600 hover:text-white" required/>
+                                        <input
+                                            id="commentInput"
+                                            name="comment_text"
+                                            type="text"
+                                            placeholder="Comments here"
+                                            className="input input-bordered input-sm w-full sm:w-96 border-purple-500 border-2 hidden"
+                                        />
+                                        <input
+                                            type="submit"
+                                            value="Add Comment"
+                                            id="commentSubmitButton"
+                                            className="rounded-lg bg-transparent px-1 py-1 text-sm font-normal border-purple-500 border-2 text-purple-500 hover:bg-purple-600 hover:text-white hidden"
+                                        />
                                     </form>
                                 </div>
-                                <div className="flex cursor-pointer items-center transition hover:text-slate-600">
-                                    <button className="rounded-2xl border bg-blue-100 px-3 py-1 text-sm font-semibold text-theme-primary" >Share</button>
+                                <div className="flex cursor-pointer transition hover:text-slate-600 space-x-2">
+                                    {/* <button className="rounded-2xl border bg-blue-100 px-3 py-1 text-sm font-semibold text-theme-primary" >Share</button> */}
+                                        <FacebookShareButton
+                                            url={shareUrl}
+                                            quote={'Title or jo bhi aapko likhna ho'}
+                                            hashtag={'#portfolio...'}
+                                            >
+                                            <FacebookIcon size={32} round={true} />
+                                        </FacebookShareButton>
+
+                                        <InstapaperShareButton
+                                            url={shareUrl}
+                                            quote={'Title or jo bhi aapko likhna ho'}
+                                            hashtag={'#portfolio...'}
+                                            >
+                                            <InstapaperIcon size={32} round={true} />
+                                        </InstapaperShareButton>
+                                        <LinkedinShareButton
+                                            url={shareUrl}
+                                            quote={'Title or jo bhi aapko likhna ho'}
+                                            hashtag={'#portfolio...'}
+                                            >
+                                            <LinkedinIcon size={32} round={true} />
+                                        </LinkedinShareButton>
+                                        <TwitterShareButton
+                                            url={shareUrl}
+                                            quote={'Title or jo bhi aapko likhna ho'}
+                                            hashtag={'#portfolio...'}
+                                            >
+                                            <TwitterIcon size={32} round={true} />
+                                        </TwitterShareButton>
+                                        <WhatsappShareButton
+                                            url={shareUrl}
+                                            quote={'Title or jo bhi aapko likhna ho'}
+                                            hashtag={'#portfolio...'}
+                                            >
+                                            <WhatsappIcon size={32} round={true} />
+                                        </WhatsappShareButton>
+                                    </div>
+                                    {/* <FacebookIcon size={28} round={true} url={shareUrlFacebook} />
+                                    <TwitterIcon size={28} round={true} />
+                                    <InstapaperIcon size={28} round={true} />
+                                    <LinkedinIcon size={28} round={true} />
+                                    <WhatsappIcon size={28} round={true} /> */}
                                 </div>
                             </div>
-                            <div className="grid grid-cols-1 justify-start items-start text-center space-x-4 md:space-x-8 border border-1 border-purple-500 my-4 p-4 rounded-lg">
-                                {comments.length === 0 ? (
+                            <div className="grid grid-cols-1 justify-start items-start text-left space-x-4 md:space-x-8 border border-1 border-purple-200 my-4 p-4 rounded-lg">
+                                <div className="mx-4">
+                                    <h4>All Comments: </h4>
+                                </div>
+                                {filteredComments.length === 0 ? (
                                     <div className="mx-4">
-                                        <p>No Comments Yet.</p>
+                                        <p className="text-purple-400">No Comments Yet.</p>
                                     </div>
                                     ) : (
-                                    comments?.map((comment) => (
+                                        filteredComments?.map((comment) => (
                                         <CommentCard
                                             key={comment._id}
                                             comment={comment}
@@ -243,9 +318,9 @@ const SinglePost = () => {
                         </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-        </div>
+            </div>
+
     );
 };
 
