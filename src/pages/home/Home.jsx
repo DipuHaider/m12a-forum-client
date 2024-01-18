@@ -215,7 +215,7 @@ const Home = () => {
             </div>
             <div className="max-w-6xl mx-auto my-4">
                 <Announcement></Announcement>
-                <div className='grid grid-cols-4 gap-3'>
+                <div className='flex flex-col gap-5'>
                     {announcements.length === 0 ? (
                         <div className="alert alert-error mt-4">
                             No Announcements found.

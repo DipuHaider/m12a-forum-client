@@ -289,11 +289,6 @@ const SinglePost = () => {
                                             <WhatsappIcon size={32} round={true} />
                                         </WhatsappShareButton>
                                     </div>
-                                    {/* <FacebookIcon size={28} round={true} url={shareUrlFacebook} />
-                                    <TwitterIcon size={28} round={true} />
-                                    <InstapaperIcon size={28} round={true} />
-                                    <LinkedinIcon size={28} round={true} />
-                                    <WhatsappIcon size={28} round={true} /> */}
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 justify-start items-start text-left space-x-4 md:space-x-8 border border-1 border-purple-200 my-4 p-4 rounded-lg">
