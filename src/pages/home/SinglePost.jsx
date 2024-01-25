@@ -31,8 +31,7 @@ const SinglePost = () => {
         (comment) => comment.comment_post_id === _id
     );
     console.log(filteredComments)
-    const shareUrl = `https://netlify/tk/post/${_id}`;
-    // const shareUrl = 'https://www.pakkamarwadi.tk/';
+    const shareUrl = `https://profound-liger-f9751d.netlify.app/post/${_id}`;
     
     const handleUpVote = () => {
         // const updatedUpVote = upvote + 1;

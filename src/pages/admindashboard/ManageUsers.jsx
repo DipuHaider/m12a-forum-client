@@ -17,7 +17,7 @@ const ManageUsers = () => {
                         <tr>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">User Name</th>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">User Email</th>
-                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Make Admin</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Make Admin (Click to toggle)</th>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">Subscription status</th>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">Action</th>
                         </tr>

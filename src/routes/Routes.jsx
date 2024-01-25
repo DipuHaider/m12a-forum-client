@@ -21,7 +21,7 @@ import SinglePost from "../pages/home/SinglePost";
 // import CreateAssignment from "../pages/assignment/CreateAssignment";
 // import UpdateAssignment from "../pages/assignment/UpdateAssignment";
 // import DetailAssignment from "../pages/assignment/DetailAssignment";
-// import PrivateRoutes from "./PrivateRoutes";
+import PrivateRoutes from "./PrivateRoutes";
 // import MyAssignment from "../pages/assignment/MyAssignment";
 // import SubmittedAssignment from "../pages/assignment/SubmittedAssignment";
 // import AllAssignment from "../pages/assignment/AllAssignment";
@@ -100,7 +100,7 @@ const router = createBrowserRouter([
     },
     {
         path: 'userdashboard',
-        element: <UserDashboard></UserDashboard>,
+        element: <PrivateRoutes><UserDashboard></UserDashboard></PrivateRoutes>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
@@ -120,12 +120,13 @@ const router = createBrowserRouter([
     },
     {
         path: 'admindashboard',
-        element: <AdminDashboard></AdminDashboard>,
+        element: <PrivateRoutes><AdminDashboard></AdminDashboard></PrivateRoutes>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: 'adminprofile',
                 element: <AdminProfile></AdminProfile>,
+                loader: () => fetch('https://m12a-forum-server.vercel.app/user'),
             },
             {
                 path: 'manageusers',

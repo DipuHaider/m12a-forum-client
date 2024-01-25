@@ -1,9 +1,43 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useLoaderData } from 'react-router-dom';
+import { useState } from 'react';
+import UserCard from "./UserCard";
+
 
 const AdminProfile = () => {
 
     const {user} = useContext(AuthContext);
+    const loadedUsers = useLoaderData();
+    const [users, setUsers] = useState(loadedUsers);
+    const [allPosts, setAllPosts] = useState([]);
+    const [announcements, setAnnouncements] = useState([]);
+
+    useEffect(() => {
+        
+      fetch("https://m12a-forum-server.vercel.app/allposts")
+              .then((response) => response.json())
+              .then((data) => {
+                  setAllPosts(data);
+              })
+              .catch((error) => {
+                  console.error("Error fetching All Post data:", error);
+              });
+      }, []);
+
+    useEffect(() => {
+            
+        fetch("https://m12a-forum-server.vercel.app/announcement")
+            .then((response) => response.json())
+            .then((data) => {
+                setAnnouncements(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching announcement data:", error);
+            });
+    }, []);
+
+  
 
     return (
         <div className="bg-red-50 flex-grow py-12 px-10">
@@ -25,30 +59,30 @@ const AdminProfile = () => {
           <div className="flex space-x-4">
             <div className="flex items-center justify-around p-6 bg-white w-64 rounded-xl space-x-2 mt-10 shadow-lg">
               <div>
-                <span className="text-sm font-semibold text-gray-400">Spent this month</span>
-                <h1 className="text-2xl font-bold">$682.5</h1>
-              </div>
-              <div>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
-                </svg>
-              </div>
-            </div>
-            <div className="flex items-center justify-around p-6 bg-white w-64 rounded-xl space-x-2 mt-10 shadow-lg">
-              <div>
-                <span className="text-sm font-semibold text-gray-400">Spent this month</span>
-                <h1 className="text-2xl font-bold">$682.5</h1>
+                <span className="text-sm font-semibold text-gray-400">Users</span>
+                <h1 className="text-2xl font-bold">{users.length}</h1>
               </div>
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                 </svg>
               </div>
             </div>
             <div className="flex items-center justify-around p-6 bg-white w-64 rounded-xl space-x-2 mt-10 shadow-lg">
               <div>
-                <span className="text-sm font-semibold text-gray-400">Spent this month</span>
-                <h1 className="text-2xl font-bold">$682.5</h1>
+                <span className="text-sm font-semibold text-gray-400">Posts</span>
+                <h1 className="text-2xl font-bold">{allPosts.length}</h1>
+              </div>
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
+                  </svg>
+              </div>
+            </div>
+            <div className="flex items-center justify-around p-6 bg-white w-64 rounded-xl space-x-2 mt-10 shadow-lg">
+              <div>
+                <span className="text-sm font-semibold text-gray-400">Announcements</span>
+                <h1 className="text-2xl font-bold">{announcements.length}</h1>
               </div>
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -68,8 +102,34 @@ const AdminProfile = () => {
               </div>
             </div>
           </div>
-          <div className="flex mt-10 justify-center">
-            <div>
+          <div className="flex mt-10">
+
+          <div className="bg-red-50 flex-grow py-2">
+            <div className="flex mt-10 justify-center">
+                <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
+                    <thead className="bg-gray-50">
+                        <tr>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">User Name</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">User Email</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Make Admin (Click to toggle)</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Subscription status</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100 border-t border-gray-100">
+                        {users.map((user) => (
+                            <UserCard
+                                key={user._id}
+                                user={user}
+                                users={users}
+                                setUsers={setUsers}
+                            ></UserCard>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            {/* <div>
               <table className="min-w-full table-auto">
                 <thead className="justify-between">
                   <tr className="bg-red-600">
@@ -171,7 +231,7 @@ const AdminProfile = () => {
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div> */}
           </div>
           <div></div>
           <div></div>
